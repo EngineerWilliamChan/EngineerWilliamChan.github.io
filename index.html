@@ -12,76 +12,63 @@
   }
   *{box-sizing:border-box}
   html,body{height:100%}
-  body{
-    margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg);
-  }
-  /* 背景容器（通过 JS 动态设置背景图，自动尝试 3DView.jpg / 3DView.png） */
-  .bg{
-    position:fixed; inset:0; z-index:-2; background:#091223 center/cover no-repeat;
-    transition:filter .4s ease, opacity .4s ease;
-  }
-  /* 读屏/视觉可读性遮罩 */
-  .scrim{
-    position:fixed; inset:0; z-index:-1;
-    background:linear-gradient(180deg, rgba(8,14,24,.62) 0%, rgba(8,14,24,.78) 55%, rgba(8,14,24,.90) 100%);
-  }
+  body{margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg)}
 
-  .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 84px;}
+  /* 背景（自动尝试 3DView.jpg / 3DView.png） */
+  .bg{position:fixed; inset:0; z-index:-2; background:#091223 center/cover no-repeat}
+  .scrim{position:fixed; inset:0; z-index:-1;
+         background:linear-gradient(180deg, rgba(8,14,24,.62) 0%, rgba(8,14,24,.78) 55%, rgba(8,14,24,.90) 100%)}
+
+  .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 84px}
+
   header{
     display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
     padding:16px 18px; border:1px solid var(--border); border-radius:16px;
-    background:rgba(10,16,28,.68); backdrop-filter:blur(6px);
+    background:rgba(10,16,28,.68); backdrop-filter:blur(6px)
   }
-  .name{font-weight:800; font-size:28px; letter-spacing:.2px}
+  .name{font-weight:800; font-size:28px}
   .role{color:var(--muted); font-size:14px}
-  .links{display:flex; gap:10px; flex-wrap:wrap}
-  .btn{
-    display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:12px;
-    border:1px solid var(--border); color:var(--text); text-decoration:none;
-    background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,211,238,.10));
-  }
-  .btn:hover{border-color:#334762}
+  .contacts{display:flex; gap:14px; flex-wrap:wrap; font-size:14px}
+  .contacts a{color:var(--text); text-decoration:none}
+  .contacts a:hover{color:#bfe9ff}
 
-  .hero{
-    margin:18px 0 16px; padding:18px; border:1px solid var(--border); border-radius:16px;
-    background:rgba(10,16,28,.72); backdrop-filter:blur(4px);
-  }
+  .hero{margin:18px 0 16px; padding:18px; border:1px solid var(--border); border-radius:16px;
+        background:rgba(10,16,28,.72); backdrop-filter:blur(4px)}
   .hero h1{margin:0 0 6px; font-size:24px}
   .hero p{margin:0; color:var(--muted)}
 
-  .grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:16px;}
-  @media (min-width:900px){ .grid{ grid-template-columns:1.1fr .9fr; } }
+  .grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:16px}
+  @media (min-width:900px){ .grid{ grid-template-columns:1.25fr .75fr } } /* 左侧更大 */
 
-  .card{
-    border:1px solid var(--border); border-radius:16px; background:rgba(12,18,30,.86);
-    overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.25);
-  }
+  .card{border:1px solid var(--border); border-radius:16px; background:rgba(12,18,30,.86);
+        overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.25)}
   .card h2{margin:0; padding:16px 16px 8px; font-size:18px}
   .card .body{padding:0 16px 16px}
   .muted{color:var(--muted); font-size:14px}
 
-  video, iframe{
-    width:100%; max-height:560px; border:1px solid var(--border); border-radius:12px; background:black
-  }
+  /* 视频更大：桌面端 ~56vh，高度自适应；移动端稍降 */
+  .video-wrap{border:1px solid var(--border); border-radius:12px; overflow:hidden; background:black}
+  video{width:100%; height:56vh; object-fit:cover}
+  @media (max-width:899px){ video{height:38vh} }
+
+  iframe{width:100%; height:520px; border:1px solid var(--border); border-radius:12px; background:#111}
   .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-  .cta{
-    background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#03121a; font-weight:700;
-    padding:9px 12px; border-radius:12px; text-decoration:none;
-  }
+  .cta{background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#03121a; font-weight:700;
+       padding:9px 12px; border-radius:12px; text-decoration:none}
   .ghost{border:1px solid #2a3b55; padding:9px 12px; border-radius:12px; text-decoration:none; color:var(--text)}
 
   footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:center}
 
-  /* 悬浮音乐按钮（单一切换） */
+  /* 音乐单键切换（右下角） */
   .music-toggle{
     position:fixed; right:18px; bottom:18px; z-index:10; width:56px; height:56px; border-radius:50%;
     border:1px solid var(--border); cursor:pointer; display:flex; align-items:center; justify-content:center;
     background:linear-gradient(135deg, rgba(56,189,248,.28), rgba(34,211,238,.18)); color:var(--text);
-    box-shadow:0 10px 26px rgba(0,0,0,.35); user-select:none;
+    box-shadow:0 10px 26px rgba(0,0,0,.35); user-select:none
   }
-  .music-toggle span{font-size:20px; line-height:1}
+  .music-toggle span{font-size:20px}
   .music-toggle:hover{border-color:#3a4a66}
-  .pulse{box-shadow:0 0 0 0 rgba(56,189,248,.5); animation:pulse 1.6s infinite}
+  .pulse{box-shadow:0 0 0 0 rgba(56,189,248,.45); animation:pulse 1.6s infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(56,189,248,.45)}70%{box-shadow:0 0 0 20px rgba(56,189,248,0)}100%{box-shadow:0 0 0 0 rgba(56,189,248,0)}}
 </style>
 </head>
@@ -95,10 +82,12 @@
         <div class="name">William Chan (Jinyu Chen)</div>
         <div class="role">MEng (Structural) • BIM / Revit / Structural Design</div>
       </div>
-      <div class="links">
-        <a class="btn" href="mailto:jy20000930@gmail.com">Email</a>
-        <a class="btn" href="tel:+61469069896">Phone</a>
-        <a class="btn" href="https://www.linkedin.com/in/william-chan-65aba2281" target="_blank" rel="noopener">LinkedIn</a>
+
+      <!-- 右上角联系方式：文字样式 + 可点击链接 -->
+      <div class="contacts">
+        <div>Email: <a href="mailto:jy20000930@gmail.com">jy20000930@gmail.com</a></div>
+        <div>Phone: <a href="tel:+61469069896">+61 469 069 896</a></div>
+        <div>LinkedIn: <a href="https://www.linkedin.com/in/william-chan-65aba2281" target="_blank" rel="noopener">/in/william-chan-65aba2281</a></div>
       </div>
     </header>
 
@@ -108,15 +97,23 @@
     </section>
 
     <section class="grid">
-      <!-- 左：视频 -->
+      <!-- 左：视频（更大 + 自动播放） -->
       <article class="card">
         <h2>4D Simulation (Revit / Navisworks)</h2>
         <div class="body">
           <p class="muted">Short demo showcasing sequencing and visualization.</p>
-          <video controls preload="metadata" playsinline>
-            <source src="WilliamChan(JinyuChen)-4Dsimulation%20Portfolio.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          <div class="video-wrap">
+            <video
+              autoplay
+              muted
+              playsinline
+              loop
+              controls
+              preload="metadata">
+              <source src="WilliamChan(JinyuChen)-4Dsimulation%20Portfolio.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
           <div class="actions">
             <a class="ghost" href="WilliamChan(JinyuChen)-4Dsimulation%20Portfolio.mp4" download>Download MP4</a>
           </div>
@@ -130,7 +127,6 @@
           <p class="muted">Detail drawings & documentation samples exported from Revit.</p>
           <iframe title="Drafting PDF"
                   src="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf#view=FitH"
-                  style="height:520px;"
                   loading="lazy"></iframe>
           <div class="actions">
             <a class="cta"   href="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf" target="_blank" rel="noopener">Open PDF</a>
@@ -143,36 +139,35 @@
     <footer>© <span id="y"></span> William Chan. Built with GitHub Pages.</footer>
   </div>
 
-  <!-- 音频（保留你的原始文件名；已 URL 编码） -->
+  <!-- 背景音乐（保持原始文件名；URL 已编码） -->
   <audio id="bgm" src="Spring%20In%20My%20Step%20-%20Silent%20Partner.mp3" preload="auto"></audio>
 
-  <!-- 单一切换按钮：播放/暂停 -->
+  <!-- 单键音乐切换 -->
   <button class="music-toggle pulse" id="musicBtn" aria-label="Toggle music"><span>▶</span></button>
 
 <script>
   // 年份
   document.getElementById('y').textContent = new Date().getFullYear();
 
-  // 背景图加载：优先尝试 3DView.jpg，失败则尝试 3DView.png
+  // 背景图加载（jpg -> png）
   (function(){
     const bg = document.getElementById('bg');
-    const tryLoad = (srcList) => {
-      if (!srcList.length) return;
-      const src = srcList.shift();
+    const tryLoad = (arr) => {
+      if(!arr.length) return;
+      const src = arr.shift();
       const img = new Image();
-      img.onload = () => { bg.style.backgroundImage = `url('${src}')`; bg.style.opacity = '1'; };
-      img.onerror = () => tryLoad(srcList);
-      img.src = src + (src.includes('?') ? '' : `?v=${Date.now()}`); // 破缓存
+      img.onload = ()=>{ bg.style.backgroundImage = `url('${src}')`; };
+      img.onerror = ()=> tryLoad(arr);
+      img.src = src + `?v=${Date.now()}`; // 防缓存
     };
     tryLoad(['3DView.jpg','3DView.png']);
   })();
 
-  // 音乐控制（单按钮切换），尽量自动播放（浏览器可能需要一次交互）
+  // 音乐：单键切换 + 自动播放尽力尝试
   const audio = document.getElementById('bgm');
   const btn   = document.getElementById('musicBtn');
   let playing = false;
 
-  // 图标/样式
   function refreshBtn(){
     btn.querySelector('span').textContent = playing ? '⏸' : '▶';
     btn.classList.toggle('pulse', !playing);
@@ -186,19 +181,15 @@
       await audio.play();
       playing = true; refreshBtn();
     }catch(e){
-      // 被浏览器拦截就等用户点击
-      playing = false; refreshBtn();
+      playing = false; refreshBtn(); // 被浏览器拦截则等待用户交互
     }
   }
 
-  // 初次尝试自动播放
+  // 首次尝试自动播放
   playAttempt();
-
-  // 用户任意交互再尝试一次（提高成功率）
+  // 任意交互再试一次（提升成功率）
   ['pointerdown','keydown','touchstart','visibilitychange'].forEach(ev=>{
-    window.addEventListener(ev, ()=>{
-      if (!playing) playAttempt();
-    }, { once:true, passive:true });
+    window.addEventListener(ev, ()=>{ if(!playing) playAttempt(); }, { once:true, passive:true });
   });
 
   // 单键切换
