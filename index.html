@@ -1,88 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>William Chan | Structural Engineering Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --bg-dark:#0b1220; --text:#e5e7eb; --muted:#93a4b8; --border:#233044;
-      --accent:#38bdf8; --accent2:#22d3ee; --max:1100px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg-dark);}
-    /* 背景图 + 渐变遮罩 */
-    body::before{
-      content:""; position:fixed; inset:0;
-      background:
-        linear-gradient(180deg, rgba(5,10,20,.60) 0%, rgba(5,10,20,.78) 60%, rgba(5,10,20,.92) 100%),
-        url('3DView.jpg') center/cover no-repeat;
-      z-index:-1; filter:saturate(1.05);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>William Chan | Structural Engineering Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b1220; --text:#e5e7eb; --muted:#9aa7bd; --card:#0f172a; --border:#22324b;
+    --accent:#38bdf8; --accent2:#22d3ee; --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg);
+  }
+  /* 背景容器（通过 JS 动态设置背景图，自动尝试 3DView.jpg / 3DView.png） */
+  .bg{
+    position:fixed; inset:0; z-index:-2; background:#091223 center/cover no-repeat;
+    transition:filter .4s ease, opacity .4s ease;
+  }
+  /* 读屏/视觉可读性遮罩 */
+  .scrim{
+    position:fixed; inset:0; z-index:-1;
+    background:linear-gradient(180deg, rgba(8,14,24,.62) 0%, rgba(8,14,24,.78) 55%, rgba(8,14,24,.90) 100%);
+  }
 
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px;}
-    header{
-      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
-      padding:16px 18px; border:1px solid var(--border); border-radius:16px;
-      backdrop-filter: blur(6px); background:rgba(8,14,24,.6);
-    }
-    .name{font-weight:800; font-size:28px}
-    .role{color:var(--muted); font-size:14px}
-    .links{display:flex; gap:10px; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; gap:8px; align-items:center; padding:9px 12px; border-radius:12px;
-      border:1px solid var(--border); text-decoration:none; color:var(--text);
-      background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,211,238,.12));
-    }
-    .btn:hover{border-color:#3a4a66}
+  .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 84px;}
+  header{
+    display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+    padding:16px 18px; border:1px solid var(--border); border-radius:16px;
+    background:rgba(10,16,28,.68); backdrop-filter:blur(6px);
+  }
+  .name{font-weight:800; font-size:28px; letter-spacing:.2px}
+  .role{color:var(--muted); font-size:14px}
+  .links{display:flex; gap:10px; flex-wrap:wrap}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:9px 12px; border-radius:12px;
+    border:1px solid var(--border); color:var(--text); text-decoration:none;
+    background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,211,238,.10));
+  }
+  .btn:hover{border-color:#334762}
 
-    .hero{margin:18px 0 16px; padding:18px; border:1px solid var(--border); border-radius:16px;
-          background:rgba(8,14,24,.68); backdrop-filter: blur(4px);}
-    .hero h1{margin:0 0 6px; font-size:24px}
-    .hero p{margin:0; color:var(--muted)}
+  .hero{
+    margin:18px 0 16px; padding:18px; border:1px solid var(--border); border-radius:16px;
+    background:rgba(10,16,28,.72); backdrop-filter:blur(4px);
+  }
+  .hero h1{margin:0 0 6px; font-size:24px}
+  .hero p{margin:0; color:var(--muted)}
 
-    .grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:16px;}
-    @media(min-width:900px){ .grid{ grid-template-columns: 1.1fr .9fr; } }
+  .grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:16px;}
+  @media (min-width:900px){ .grid{ grid-template-columns:1.1fr .9fr; } }
 
-    .card{border:1px solid var(--border); border-radius:16px; background:rgba(10,16,28,.82); overflow:hidden;}
-    .card h2{margin:0; padding:16px 16px 8px; font-size:18px}
-    .card .body{padding:0 16px 16px}
-    .muted{color:var(--muted); font-size:14px}
+  .card{
+    border:1px solid var(--border); border-radius:16px; background:rgba(12,18,30,.86);
+    overflow:hidden; box-shadow:0 8px 24px rgba(0,0,0,.25);
+  }
+  .card h2{margin:0; padding:16px 16px 8px; font-size:18px}
+  .card .body{padding:0 16px 16px}
+  .muted{color:var(--muted); font-size:14px}
 
-    video, iframe{width:100%; max-height:560px; border:1px solid var(--border); border-radius:12px; background:black}
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
-    .cta{background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#021017; font-weight:700;
-         padding:9px 12px; border-radius:12px; text-decoration:none;}
-    .ghost{border:1px solid #2a3b55; padding:9px 12px; border-radius:12px; text-decoration:none; color:var(--text);}
+  video, iframe{
+    width:100%; max-height:560px; border:1px solid var(--border); border-radius:12px; background:black
+  }
+  .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+  .cta{
+    background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#03121a; font-weight:700;
+    padding:9px 12px; border-radius:12px; text-decoration:none;
+  }
+  .ghost{border:1px solid #2a3b55; padding:9px 12px; border-radius:12px; text-decoration:none; color:var(--text)}
 
-    footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:center}
+  footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:center}
 
-    /* 悬浮音乐按钮 + 折叠面板 */
-    .fab{
-      position:fixed; right:18px; bottom:18px; z-index:5;
-      width:54px; height:54px; border-radius:50%; border:1px solid var(--border);
-      background:linear-gradient(135deg, rgba(56,189,248,.25), rgba(34,211,238,.18));
-      color:var(--text); display:flex; align-items:center; justify-content:center;
-      cursor:pointer; backdrop-filter: blur(6px);
-    }
-    .music-panel{
-      position:fixed; right:18px; bottom:84px; z-index:5; width:280px;
-      border:1px solid var(--border); border-radius:14px; background:rgba(8,14,24,.86); padding:12px;
-      display:none;
-    }
-    .music-panel.show{display:block;}
-    .music-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
-    .music-row button{
-      padding:8px 12px; border-radius:10px; border:1px solid var(--border); cursor:pointer;
-      background:linear-gradient(135deg, rgba(56,189,248,.2), rgba(34,211,238,.12)); color:var(--text)
-    }
-    .music-row input[type="range"]{width:120px; accent-color:#7dd3fc}
-    .music-title{font-size:13px; color:var(--muted); margin:6px 0 10px}
-  </style>
+  /* 悬浮音乐按钮（单一切换） */
+  .music-toggle{
+    position:fixed; right:18px; bottom:18px; z-index:10; width:56px; height:56px; border-radius:50%;
+    border:1px solid var(--border); cursor:pointer; display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(135deg, rgba(56,189,248,.28), rgba(34,211,238,.18)); color:var(--text);
+    box-shadow:0 10px 26px rgba(0,0,0,.35); user-select:none;
+  }
+  .music-toggle span{font-size:20px; line-height:1}
+  .music-toggle:hover{border-color:#3a4a66}
+  .pulse{box-shadow:0 0 0 0 rgba(56,189,248,.5); animation:pulse 1.6s infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(56,189,248,.45)}70%{box-shadow:0 0 0 20px rgba(56,189,248,0)}100%{box-shadow:0 0 0 0 rgba(56,189,248,0)}}
+</style>
 </head>
 <body>
+  <div class="bg" id="bg"></div>
+  <div class="scrim"></div>
+
   <div class="wrap">
     <header>
       <div>
@@ -107,7 +113,7 @@
         <h2>4D Simulation (Revit / Navisworks)</h2>
         <div class="body">
           <p class="muted">Short demo showcasing sequencing and visualization.</p>
-          <video controls preload="metadata">
+          <video controls preload="metadata" playsinline>
             <source src="WilliamChan(JinyuChen)-4Dsimulation%20Portfolio.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -122,9 +128,12 @@
         <h2>Drafting Portfolio (PDF)</h2>
         <div class="body">
           <p class="muted">Detail drawings & documentation samples exported from Revit.</p>
-          <iframe title="Drafting PDF" src="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf#view=FitH" style="height:520px;"></iframe>
+          <iframe title="Drafting PDF"
+                  src="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf#view=FitH"
+                  style="height:520px;"
+                  loading="lazy"></iframe>
           <div class="actions">
-            <a class="cta" href="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf" target="_blank" rel="noopener">Open PDF</a>
+            <a class="cta"   href="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf" target="_blank" rel="noopener">Open PDF</a>
             <a class="ghost" href="William%20Chan(Jinyu%20Chen)-Drafting%20Portfolio.pdf" download>Download PDF</a>
           </div>
         </div>
@@ -134,63 +143,69 @@
     <footer>© <span id="y"></span> William Chan. Built with GitHub Pages.</footer>
   </div>
 
-  <!-- 音频：文件名保持原样（URL 已编码） -->
-  <audio id="bgm" src="Spring%20In%20My%20Step%20-%20Silent%20Partner.mp3" preload="none"></audio>
+  <!-- 音频（保留你的原始文件名；已 URL 编码） -->
+  <audio id="bgm" src="Spring%20In%20My%20Step%20-%20Silent%20Partner.mp3" preload="auto"></audio>
 
-  <!-- 悬浮音乐按钮 + 面板 -->
-  <button class="fab" id="fab" aria-label="Music Control">♪</button>
-  <div class="music-panel" id="panel" aria-hidden="true">
-    <div class="music-title">Now Playing: Spring In My Step — Silent Partner</div>
-    <div class="music-row" style="margin-bottom:8px;">
-      <button id="play">Play</button>
-      <button id="pause">Pause</button>
-      <label>Vol <input id="vol" type="range" min="0" max="1" step="0.01" value="0.6"></label>
-      <label><input id="loop" type="checkbox" checked> Loop</label>
-    </div>
-    <div class="muted" style="font-size:12px">Tip: some browsers block autoplay; click Play to start.</div>
-  </div>
+  <!-- 单一切换按钮：播放/暂停 -->
+  <button class="music-toggle pulse" id="musicBtn" aria-label="Toggle music"><span>▶</span></button>
 
-  <script>
-    // 年份
-    document.getElementById('y').textContent = new Date().getFullYear();
+<script>
+  // 年份
+  document.getElementById('y').textContent = new Date().getFullYear();
 
-    // 悬浮音乐控制
-    const audio = document.getElementById('bgm');
-    const fab = document.getElementById('fab');
-    const panel = document.getElementById('panel');
-    const playBtn = document.getElementById('play');
-    const pauseBtn = document.getElementById('pause');
-    const vol = document.getElementById('vol');
-    const loop = document.getElementById('loop');
-
-    // 打开/关闭面板
-    fab.addEventListener('click', () => {
-      const show = !panel.classList.contains('show');
-      panel.classList.toggle('show', show);
-      panel.setAttribute('aria-hidden', String(!show));
-    });
-
-    // 播放控制
-    playBtn.addEventListener('click', async () => {
-      try { audio.volume = parseFloat(vol.value); audio.loop = loop.checked; await audio.play(); }
-      catch(e){ console.log(e); }
-    });
-    pauseBtn.addEventListener('click', () => audio.pause());
-    vol.addEventListener('input', () => { audio.volume = parseFloat(vol.value); });
-    loop.addEventListener('change', () => { audio.loop = loop.checked; });
-
-    // 记忆上次音量/循环偏好
-    const k = 'wc_bgm_pref';
-    try{
-      const pref = JSON.parse(localStorage.getItem(k) || '{}');
-      if (typeof pref.v === 'number') { vol.value = pref.v; audio.volume = pref.v; }
-      if (typeof pref.l === 'boolean') { loop.checked = pref.l; audio.loop = pref.l; }
-    }catch{}
-    const savePref = () => {
-      try{ localStorage.setItem(k, JSON.stringify({v: parseFloat(vol.value), l: loop.checked})) }catch{}
+  // 背景图加载：优先尝试 3DView.jpg，失败则尝试 3DView.png
+  (function(){
+    const bg = document.getElementById('bg');
+    const tryLoad = (srcList) => {
+      if (!srcList.length) return;
+      const src = srcList.shift();
+      const img = new Image();
+      img.onload = () => { bg.style.backgroundImage = `url('${src}')`; bg.style.opacity = '1'; };
+      img.onerror = () => tryLoad(srcList);
+      img.src = src + (src.includes('?') ? '' : `?v=${Date.now()}`); // 破缓存
     };
-    vol.addEventListener('change', savePref);
-    loop.addEventListener('change', savePref);
-  </script>
+    tryLoad(['3DView.jpg','3DView.png']);
+  })();
+
+  // 音乐控制（单按钮切换），尽量自动播放（浏览器可能需要一次交互）
+  const audio = document.getElementById('bgm');
+  const btn   = document.getElementById('musicBtn');
+  let playing = false;
+
+  // 图标/样式
+  function refreshBtn(){
+    btn.querySelector('span').textContent = playing ? '⏸' : '▶';
+    btn.classList.toggle('pulse', !playing);
+    btn.setAttribute('aria-pressed', playing ? 'true' : 'false');
+  }
+
+  async function playAttempt(){
+    try{
+      audio.loop = true;
+      audio.volume = 0.6;
+      await audio.play();
+      playing = true; refreshBtn();
+    }catch(e){
+      // 被浏览器拦截就等用户点击
+      playing = false; refreshBtn();
+    }
+  }
+
+  // 初次尝试自动播放
+  playAttempt();
+
+  // 用户任意交互再尝试一次（提高成功率）
+  ['pointerdown','keydown','touchstart','visibilitychange'].forEach(ev=>{
+    window.addEventListener(ev, ()=>{
+      if (!playing) playAttempt();
+    }, { once:true, passive:true });
+  });
+
+  // 单键切换
+  btn.addEventListener('click', async ()=>{
+    if (playing){ audio.pause(); playing=false; refreshBtn(); }
+    else { await playAttempt(); }
+  });
+</script>
 </body>
 </html>
