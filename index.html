@@ -4,97 +4,110 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>William Chan | Structural Engineering Portfolio</title>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --bg:#0f172a;          /* 深蓝灰背景 */
-      --card:#111827;        /* 卡片深色 */
-      --text:#e5e7eb;        /* 正文浅灰 */
-      --muted:#94a3b8;       /* 次要文字 */
-      --accent:#38bdf8;      /* 青蓝按钮 */
-      --accent-2:#22d3ee;    /* 渐变辅助色 */
-      --border:#1f2937;
-      --max: 1000px;
+      --bg-dark:#0b1220; --text:#e5e7eb; --muted:#93a4b8; --border:#233044;
+      --accent:#38bdf8; --accent2:#22d3ee; --max:1100px;
     }
     *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Arial,Helvetica,sans-serif;
-      color:var(--text);
-      background: radial-gradient(1200px 500px at 20% -10%, rgba(56,189,248,.18), transparent 60%),
-                  radial-gradient(900px 400px at 120% 0%, rgba(34,211,238,.12), transparent 60%),
-                  var(--bg);
-      line-height:1.6;
+    html,body{height:100%}
+    body{margin:0; font-family:'Inter',system-ui,Segoe UI,Roboto,Arial,sans-serif; color:var(--text); background:var(--bg-dark);}
+    /* 背景图 + 渐变遮罩 */
+    body::before{
+      content:""; position:fixed; inset:0;
+      background:
+        linear-gradient(180deg, rgba(5,10,20,.60) 0%, rgba(5,10,20,.78) 60%, rgba(5,10,20,.92) 100%),
+        url('3DView.jpg') center/cover no-repeat;
+      z-index:-1; filter:saturate(1.05);
     }
-    .wrap{max-width:var(--max); margin:0 auto; padding:28px 20px 60px;}
+
+    .wrap{max-width:var(--max); margin:0 auto; padding:28px 18px 80px;}
     header{
-      display:flex; align-items:center; justify-content:space-between; gap:16px;
-      padding:22px 22px; border:1px solid var(--border); border-radius:18px; background:rgba(17,24,39,.6); backdrop-filter: blur(6px);
+      display:flex; gap:16px; align-items:center; justify-content:space-between; flex-wrap:wrap;
+      padding:16px 18px; border:1px solid var(--border); border-radius:16px;
+      backdrop-filter: blur(6px); background:rgba(8,14,24,.6);
     }
-    .name{font-size:28px; font-weight:800; letter-spacing:.3px}
+    .name{font-weight:800; font-size:28px}
     .role{color:var(--muted); font-size:14px}
     .links{display:flex; gap:10px; flex-wrap:wrap}
     .btn{
-      display:inline-flex; align-items:center; gap:8px; padding:10px 14px;
-      border-radius:12px; border:1px solid var(--border); text-decoration:none; color:var(--text);
-      background:linear-gradient(135deg, rgba(56,189,248,.16), rgba(34,211,238,.10));
+      display:inline-flex; gap:8px; align-items:center; padding:9px 12px; border-radius:12px;
+      border:1px solid var(--border); text-decoration:none; color:var(--text);
+      background:linear-gradient(135deg, rgba(56,189,248,.18), rgba(34,211,238,.12));
     }
-    .btn:hover{border-color:#334155}
-    .hero{
-      margin:28px 0 18px; padding:26px 22px; border:1px solid var(--border); border-radius:18px; background:#0b1220;
-    }
-    .hero h1{margin:0 0 8px; font-size:26px}
+    .btn:hover{border-color:#3a4a66}
+
+    .hero{margin:18px 0 16px; padding:18px; border:1px solid var(--border); border-radius:16px;
+          background:rgba(8,14,24,.68); backdrop-filter: blur(4px);}
+    .hero h1{margin:0 0 6px; font-size:24px}
     .hero p{margin:0; color:var(--muted)}
-    .grid{
-      display:grid; grid-template-columns:1fr; gap:18px; margin-top:18px;
-    }
+
+    .grid{display:grid; gap:16px; grid-template-columns:1fr; margin-top:16px;}
     @media(min-width:900px){ .grid{ grid-template-columns: 1.1fr .9fr; } }
-    .card{
-      border:1px solid var(--border); border-radius:18px; background:var(--card); overflow:hidden;
-    }
-    .card h2{margin:0; padding:18px 18px 10px; font-size:20px}
-    .card .body{padding:0 18px 18px}
+
+    .card{border:1px solid var(--border); border-radius:16px; background:rgba(10,16,28,.82); overflow:hidden;}
+    .card h2{margin:0; padding:16px 16px 8px; font-size:18px}
+    .card .body{padding:0 16px 16px}
     .muted{color:var(--muted); font-size:14px}
-    .actions{display:flex; gap:10px; margin-top:12px; flex-wrap:wrap}
-    .cta{
-      background:linear-gradient(135deg, var(--accent), var(--accent-2)); color:#001018; font-weight:700;
-      padding:10px 14px; border-radius:12px; text-decoration:none; display:inline-block;
+
+    video, iframe{width:100%; max-height:560px; border:1px solid var(--border); border-radius:12px; background:black}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:12px}
+    .cta{background:linear-gradient(135deg, var(--accent), var(--accent2)); color:#021017; font-weight:700;
+         padding:9px 12px; border-radius:12px; text-decoration:none;}
+    .ghost{border:1px solid #2a3b55; padding:9px 12px; border-radius:12px; text-decoration:none; color:var(--text);}
+
+    footer{margin-top:26px; color:var(--muted); font-size:13px; text-align:center}
+
+    /* 悬浮音乐按钮 + 折叠面板 */
+    .fab{
+      position:fixed; right:18px; bottom:18px; z-index:5;
+      width:54px; height:54px; border-radius:50%; border:1px solid var(--border);
+      background:linear-gradient(135deg, rgba(56,189,248,.25), rgba(34,211,238,.18));
+      color:var(--text); display:flex; align-items:center; justify-content:center;
+      cursor:pointer; backdrop-filter: blur(6px);
     }
-    .ghost{
-      border:1px solid #1f2b37; padding:10px 14px; border-radius:12px; text-decoration:none; color:var(--text);
+    .music-panel{
+      position:fixed; right:18px; bottom:84px; z-index:5; width:280px;
+      border:1px solid var(--border); border-radius:14px; background:rgba(8,14,24,.86); padding:12px;
+      display:none;
     }
-    video, iframe, img{width:100%; max-height:560px; border:1px solid var(--border); border-radius:14px; background:black}
-    footer{margin-top:28px; color:var(--muted); font-size:13px; text-align:center}
+    .music-panel.show{display:block;}
+    .music-row{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+    .music-row button{
+      padding:8px 12px; border-radius:10px; border:1px solid var(--border); cursor:pointer;
+      background:linear-gradient(135deg, rgba(56,189,248,.2), rgba(34,211,238,.12)); color:var(--text)
+    }
+    .music-row input[type="range"]{width:120px; accent-color:#7dd3fc}
+    .music-title{font-size:13px; color:var(--muted); margin:6px 0 10px}
   </style>
 </head>
 <body>
   <div class="wrap">
-
     <header>
       <div>
         <div class="name">William Chan (Jinyu Chen)</div>
-        <div class="role">MEng (Structural), Monash University • BIM / Revit / Structural Design</div>
+        <div class="role">MEng (Structural) • BIM / Revit / Structural Design</div>
       </div>
       <div class="links">
-        <a class="btn" href="mailto:YOUR.EMAIL@EXAMPLE.COM">Email</a>
-        <a class="btn" href="https://www.linkedin.com/in/YOUR-LINKEDIN" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn" href="https://github.com/EngineerWilliamChan" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="mailto:jy20000930@gmail.com">Email</a>
+        <a class="btn" href="tel:+61469069896">Phone</a>
+        <a class="btn" href="https://www.linkedin.com/in/william-chan-65aba2281" target="_blank" rel="noopener">LinkedIn</a>
       </div>
     </header>
 
     <section class="hero">
       <h1>Portfolio Highlights</h1>
-      <p>Selected drafting, 4D simulation and structural works. Download the PDF or play the demo video below. For source files or more projects, contact me on LinkedIn.</p>
+      <p>Drafting set, 4D simulation and structural works. Background image from my 3D model.</p>
     </section>
 
     <section class="grid">
-      <!-- 左：视频卡片 -->
+      <!-- 左：视频 -->
       <article class="card">
-        <h2>4D Simulation (Revit + Navisworks Demo)</h2>
+        <h2>4D Simulation (Revit / Navisworks)</h2>
         <div class="body">
           <p class="muted">Short demo showcasing sequencing and visualization.</p>
-          <video controls poster="" preload="metadata">
+          <video controls preload="metadata">
             <source src="WilliamChan(JinyuChen)-4Dsimulation%20Portfolio.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -104,7 +117,7 @@
         </div>
       </article>
 
-      <!-- 右：PDF卡片 -->
+      <!-- 右：PDF -->
       <article class="card">
         <h2>Drafting Portfolio (PDF)</h2>
         <div class="body">
@@ -118,21 +131,66 @@
       </article>
     </section>
 
-    <!-- 可选：更多项目卡片（图片画廊） -->
-    <!--
-    <section class="grid" style="grid-template-columns:1fr 1fr 1fr">
-      <article class="card"><img src="img/project1.jpg" alt="Project 1"><div class="body"><h2>Project 1</h2></div></article>
-      <article class="card"><img src="img/project2.jpg" alt="Project 2"><div class="body"><h2>Project 2</h2></div></article>
-      <article class="card"><img src="img/project3.jpg" alt="Project 3"><div class="body"><h2>Project 3</h2></div></article>
-    </section>
-    -->
-
-    <footer>
-      © <span id="y"></span> William Chan. Built with GitHub Pages.
-    </footer>
+    <footer>© <span id="y"></span> William Chan. Built with GitHub Pages.</footer>
   </div>
 
-  <script>document.getElementById('y').textContent = new Date().getFullYear();</script>
+  <!-- 音频：文件名保持原样（URL 已编码） -->
+  <audio id="bgm" src="Spring%20In%20My%20Step%20-%20Silent%20Partner.mp3" preload="none"></audio>
+
+  <!-- 悬浮音乐按钮 + 面板 -->
+  <button class="fab" id="fab" aria-label="Music Control">♪</button>
+  <div class="music-panel" id="panel" aria-hidden="true">
+    <div class="music-title">Now Playing: Spring In My Step — Silent Partner</div>
+    <div class="music-row" style="margin-bottom:8px;">
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+      <label>Vol <input id="vol" type="range" min="0" max="1" step="0.01" value="0.6"></label>
+      <label><input id="loop" type="checkbox" checked> Loop</label>
+    </div>
+    <div class="muted" style="font-size:12px">Tip: some browsers block autoplay; click Play to start.</div>
+  </div>
+
+  <script>
+    // 年份
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // 悬浮音乐控制
+    const audio = document.getElementById('bgm');
+    const fab = document.getElementById('fab');
+    const panel = document.getElementById('panel');
+    const playBtn = document.getElementById('play');
+    const pauseBtn = document.getElementById('pause');
+    const vol = document.getElementById('vol');
+    const loop = document.getElementById('loop');
+
+    // 打开/关闭面板
+    fab.addEventListener('click', () => {
+      const show = !panel.classList.contains('show');
+      panel.classList.toggle('show', show);
+      panel.setAttribute('aria-hidden', String(!show));
+    });
+
+    // 播放控制
+    playBtn.addEventListener('click', async () => {
+      try { audio.volume = parseFloat(vol.value); audio.loop = loop.checked; await audio.play(); }
+      catch(e){ console.log(e); }
+    });
+    pauseBtn.addEventListener('click', () => audio.pause());
+    vol.addEventListener('input', () => { audio.volume = parseFloat(vol.value); });
+    loop.addEventListener('change', () => { audio.loop = loop.checked; });
+
+    // 记忆上次音量/循环偏好
+    const k = 'wc_bgm_pref';
+    try{
+      const pref = JSON.parse(localStorage.getItem(k) || '{}');
+      if (typeof pref.v === 'number') { vol.value = pref.v; audio.volume = pref.v; }
+      if (typeof pref.l === 'boolean') { loop.checked = pref.l; audio.loop = pref.l; }
+    }catch{}
+    const savePref = () => {
+      try{ localStorage.setItem(k, JSON.stringify({v: parseFloat(vol.value), l: loop.checked})) }catch{}
+    };
+    vol.addEventListener('change', savePref);
+    loop.addEventListener('change', savePref);
+  </script>
 </body>
 </html>
-
